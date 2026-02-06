@@ -1,16 +1,20 @@
 ---
 layout: page
-title: About me
-subtitle: Why you'd want to go on a date with me
+title: Über mich
+subtitle: Zwischen Rhein und Atlas – Abenteurer & Brückenbauer
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+### Salamualaikom & Hallo! 
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+Ich bin Yassine. **Geboren und aufgewachsen im schönen Düsseldorf am Rhein**, schlage ich heute die Brücke zu meinen marokkanischen Wurzeln. 
 
-What else do you need?
+Ich bin ein Abenteurer mit einem klassischen 9-to-5 Job. Diese Kombination prägt mich: In mir schlägt ein Herz für das Unvorhersehbare in abgelegenden Gebieten, gepaart mit der strukturierten Planung meines Alltags. Als Deutsch-Marokkaner verbinde ich diese zwei Welten und freue mich, wenn ich Menschen dabei helfen kann, Ängste vor dem Unbekannten abzubauen und Marokko authentisch zu erleben.
 
-### My story
+**Was dich hier erwartet:**
+Auf "Marokko hautnah" teile ich meine Erlebnisse, um deine eigene Reise unvergesslich zu machen:
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+* **Persönliche Abenteuer:** Geschichten von unterwegs, ehrlich und direkt.
+* **Praktische Guides:** Wissen für deine Planung (Route, Sicherheit, Tipps).
+* **Kulturelle Einblicke:** Authentische Perspektiven auf Land, Leute und Traditionen.
+
+Begleite mich auf meinen Erkundungen und lass dich inspirieren – egal, ob du dein erstes großes Abenteuer planst oder einfach mehr über dieses faszinierende Land erfahren möchtest!
