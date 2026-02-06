@@ -3,7 +3,8 @@ layout: page
 title: Über mich
 subtitle: Zwischen Rhein und Atlas – Abenteurer & Brückenbauer
 ---
-![Yassine]({{ "/assets/img/yassine-profil.jpg" | relative_url }})
+
+![Yassine](https://yassine-ta33.github.io/assets/img/yassine-profil.jpg)
 
 ### Salamualaikom & Hallo! 
 
