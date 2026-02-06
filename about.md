@@ -1,5 +1,5 @@
 ---
-![Yassine](/assets/img/yassine-profil.jpg)
+![Yassine]({{ "/assets/img/yassine-profil.jpg" | relative_url }})
 layout: page
 title: Über mich
 subtitle: Zwischen Rhein und Atlas – Abenteurer & Brückenbauer
