@@ -1,4 +1,5 @@
 ---
+![Yassine](/assets/img/yassine-profil.jpg)
 layout: page
 title: Über mich
 subtitle: Zwischen Rhein und Atlas – Abenteurer & Brückenbauer
