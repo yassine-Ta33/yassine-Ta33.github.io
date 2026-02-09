@@ -161,9 +161,10 @@
   <link rel="stylesheet" href="{{ "/assets/css/staticman.css" | relative_url }}">
   {% endif %}
 
-  <link rel="shortcut icon" type="image/x-icon" href="{{ '/assets/img/favicon.png' | relative_url }}">
-  {% if favicon_exists == 1 %}
-  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" />
+{% if site.favicon-img %}
+  <link rel="shortcut icon" type="image/x-icon" href="{{ site.favicon-img | relative_url }}">
+  {% elsif site.favicon %}
+  <link rel="shortcut icon" type="image/x-icon" href="{{ site.favicon | relative_url }}">
   {% endif %}
 
   {% if page.head-extra %}
