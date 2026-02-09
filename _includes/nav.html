@@ -12,22 +12,27 @@
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-      {%- for link in site.navbar-links -%}
-        {%- if link[1].first %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ link[0] }}</a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              {%- for childlink in link[1] -%}
-                {%- for linkparts in childlink %}
-                  <a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a>
-                {%- endfor -%}
-              {%- endfor %}
-            </div>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
-          </li>
+     <ul class="navbar-nav ml-auto">
+  {% for link in site.navbar-links %}
+    {% if link[0] == "REISEN" %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          REISEN
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ '/tags#bikepacking' | relative_url }}">🚲 Bikepacking</a>
+          <a class="dropdown-item" href="{{ '/tags#auto' | relative_url }}">🚗 Auto / Van</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{ '/reisen' | relative_url }}">Alle Berichte</a>
+        </div>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
         {%- endif -%}
       {%- endfor -%}
       {% if site.post_search %}
