@@ -18,7 +18,7 @@ Nador ist eine Hafenstadt im Norden Marokkos: viel Trubel, dichter Verkehr und e
 
 Von Nador aus führte mich mein Weg Richtung Selouane, vorbei am Flughafen in Monte Aroui bis nach Tiztoutine, wo ich meine erste Pause einlegte.
 
-![Pause in Tiztoutine Marokko]({{ site.baseurl }}/assets/img/bikepacking-marokko-erste-pause-tiztoutine.jpg)
+![Pause in Tiztoutine Marokko]({{ site.baseurl }}/assets/img/bikepacking-marokko-erste-pause-tiztoutine.jpeg)
 
 Mein Kraftpaket zu Beginn – Lammfleisch mit frischem Brot vom Opferfest inmitten der Natur. Genau das, was ich brauchte, um meine Motivation hochzuhalten. Kurz darauf gab es natürlich den ersten marokkanischen Pfefferminztee.
 
