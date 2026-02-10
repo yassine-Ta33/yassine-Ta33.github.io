@@ -61,11 +61,11 @@ social-network-links:
   whatsapp: 01737777949
 #  medium: yourname
 #  reddit: yourname or r/yoursubreddit
-linkedin: Yassine Tajjiou
+  linkedin: Yassine Tajjiou
 #  xing: yourname
 #  stackoverflow: "3943160/daattali"
 #  snapchat: deanat78
-instagram: yas_sine_ta
+  instagram: yas_sine_ta
 #  spotify: yourname
 #  telephone: +14159998888
 #  steam: deanat78
@@ -96,7 +96,7 @@ rss-description: This website is a virtual proof that I'm awesome
 # Select which social network share links to show in posts
 share-links-active:
   twitter: false
-  facebook: false
+  facebook: true
   linkedin: true
   vk: false
   reddit: false
