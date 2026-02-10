@@ -12,26 +12,18 @@
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-     <ul class="navbar-nav ml-auto">
-  {% for link in site.navbar-links %}
-    {% if link[0] == "REISEN" %}
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          REISEN
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ '/tags#bikepacking' | relative_url }}">🚲 Bikepacking</a>
-          <a class="dropdown-item" href="{{ '/tags#auto' | relative_url }}">🚗 Auto / Van</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ '/reisen' | relative_url }}">Alle Berichte</a>
-        </div>
-      </li>
-    {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
-      </li>
-    {% endif %}
-  {% endfor %}
+   <li class="nav-item">
+    <a class="nav-link" href="{{ '/about' | relative_url }}">ÜBER MICH</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ '/reisen' | relative_url }}">REISEN</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ '/guides' | relative_url }}">MAGHREB GUIDE</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ '/contact' | relative_url }}">KONTAKT</a>
+  </li>
 </ul>
         {%- endif -%}
       {%- endfor -%}
