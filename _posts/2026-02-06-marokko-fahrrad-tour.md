@@ -39,16 +39,8 @@ Mein Fazit der ersten Nacht: Wir hatten das Gefühl, dass Wildcamper in dieser R
 
 
 
-![Hier ein Bild vom Atlas einfügen](/assets/img/dein-atlas-bild.jpg)
-*Bildunterschrift: Morgendlicher Frost im Atlas – ein krasser Kontrast zu dem, was noch kommen sollte.*
 
-### Die Einsamkeit der Westsahara
-Ab [Ort einfügen] änderte sich alles. Der Asphalt glühte, und der Wind wurde zum ständigen Begleiter. Die Westsahara verzeiht keine Fehler in der Wasserplanung, aber sie belohnt dich mit einer Weite, die man im Kopf erst einmal verarbeiten muss.
 
-> "Hier einen kurzen Satz zu deinem härtesten Moment einfügen."
-
-### Mein Fazit für dich
-Ich bin als Abenteurer gestartet und als Kenner des Landes angekommen. Marokko ist kein Land, das man 'besucht' – man muss es erfahren. 
 
 **Du planst eine eigene Tour?**
 In meinem [Maghreb Guide](/guides) teile ich meine komplette Packliste und Tipps zur Logistik, damit du nicht die gleichen Fehler machst wie ich zu Beginn.
