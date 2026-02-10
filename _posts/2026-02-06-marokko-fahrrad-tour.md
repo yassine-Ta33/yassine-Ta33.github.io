@@ -2,8 +2,7 @@
 layout: post
 title: "3000km Freiheit: Mit dem Fahrrad von Nador nach Dakhla"
 subtitle: "Ein Guide über Route, Equipment und das Leben auf der Straße"
-date: 2026-02-06
-background: '/img/posts/marokko-header.jpg'
+category: reisen
 ---
 
 Marokko vom Sattel aus zu erleben, ist eine Grenzerfahrung. Von der frischen Mittelmeerbrise in **Nador** über die schneebedeckten Gipfel des **Atlas** bis hin zu den endlosen, windgepeitschten Straßen der **Westsahara** nach **Dakhla**. Hier ist mein kompletter Erfahrungsbericht.
