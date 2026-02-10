@@ -3,7 +3,7 @@ layout: page
 title: Reisen
 ---
 
-### Meine Abenteuer im Maghreb
+### Meine Reisen
 
 Hier findest du die detaillierten Berichte meiner Touren.
 
