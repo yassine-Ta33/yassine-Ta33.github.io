@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nador → Dakhla per Rad — YassineReist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream: #f5f0e8; --sand: #e8dcc8; --ink: #1a1410; --rust: #c4522a; --moss: #4a5e3a; --sky: #7bafc4; --gold: #c8962a; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+    header { display: flex; justify-content: space-between; align-items: center; padding: 1.8rem 3rem; border-bottom: 1px solid rgba(26,20,16,.12); position: sticky; top: 0; background: rgba(245,240,232,.92); backdrop-filter: blur(8px); z-index: 100; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: -.02em; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--rust); }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { font-family: 'DM Mono', monospace; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); text-decoration: none; opacity: .6; transition: opacity .2s; }
+    nav a:hover, nav a.active { opacity: 1; }
+    .nav-cta { padding: .45rem 1.1rem; border: 1.5px solid var(--ink); border-radius: 2px; opacity: 1 !important; }
+    .nav-cta:hover { background: var(--ink); color: var(--cream) !important; }
+
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.8rem; font-family: 'DM Mono', monospace; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all .25s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--rust); color: #fff; }
+    .btn-primary:hover { background: #a8421e; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196,82,42,.3); }
+    .btn-gold { background: var(--gold); color: #fff; }
+    .btn-gold:hover { background: #a87820; transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 1.5px solid var(--ink); color: var(--ink); }
+    .btn-outline:hover { background: var(--ink); color: var(--cream); }
+    .btn-outline-light { background: transparent; border: 1.5px solid rgba(245,240,232,.4); color: var(--cream); }
+    .btn-outline-light:hover { background: rgba(245,240,232,.1); }
+
+    .section-label { font-family: 'DM Mono', monospace; font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: block; }
+
+    /* HERO */
+    .hero { position: relative; min-height: 95vh; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,20,16,.92) 0%, rgba(26,20,16,.4) 50%, rgba(26,20,16,.1) 100%); }
+    .hero-inner { position: relative; z-index: 2; padding: 5rem 3rem; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: flex-end; }
+    .hero-left { color: var(--cream); }
+    .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 700; line-height: 1; letter-spacing: -.03em; margin-bottom: 1.5rem; color: var(--cream); }
+    .hero h1 em { font-style: italic; color: var(--rust); display: block; }
+    .hero-desc { font-size: 1.05rem; line-height: 1.8; opacity: .7; max-width: 460px; margin-bottom: 2.5rem; }
+    .hero-stats { display: flex; gap: 0; border: 1px solid rgba(245,240,232,.15); border-radius: 3px; overflow: hidden; align-self: flex-end; }
+    .hstat { padding: 1.5rem 2rem; text-align: center; color: var(--cream); border-right: 1px solid rgba(245,240,232,.15); flex: 1; }
+    .hstat:last-child { border-right: none; }
+    .hstat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
+    .hstat-lbl { font-family: 'DM Mono', monospace; font-size: .55rem; letter-spacing: .12em; text-transform: uppercase; opacity: .5; }
+
+    /* ROUTE TIMELINE */
+    .route-section { padding: 6rem 3rem; background: var(--ink); color: var(--cream); }
+    .route-section .section-label { color: var(--gold); }
+    .route-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem; }
+    .route-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; }
+    .route-header h2 em { font-style: italic; color: var(--rust); }
+    .route-header p { font-size: .95rem; line-height: 1.7; opacity: .55; max-width: 340px; }
+
+    /* SVG MAP */
+    .map-container { background: rgba(245,240,232,.04); border: 1px solid rgba(245,240,232,.08); border-radius: 3px; padding: 2rem; margin-bottom: 4rem; overflow: hidden; }
+    .map-container svg { width: 100%; height: auto; display: block; }
+
+    .chapters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .chapter { border: 1px solid rgba(245,240,232,.08); border-radius: 3px; overflow: hidden; transition: border-color .3s; }
+    .chapter:hover { border-color: rgba(245,240,232,.25); }
+    .chapter-img { position: relative; height: 180px; overflow: hidden; }
+    .chapter-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .chapter:hover .chapter-img img { transform: scale(1.05); }
+    .chapter-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,20,16,.7), transparent); }
+    .chapter-num { position: absolute; top: 1rem; left: 1rem; font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); background: rgba(26,20,16,.6); padding: .25rem .6rem; border-radius: 2px; z-index: 2; }
+    .chapter-body { padding: 1.4rem; }
+    .chapter-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: .5rem; }
+    .chapter-desc { font-size: .86rem; line-height: 1.65; opacity: .5; margin-bottom: .8rem; }
+    .chapter-meta { font-family: 'DM Mono', monospace; font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; opacity: .35; }
+
+    /* SCHLAFPLÄTZE HIGHLIGHT */
+    .schlafplaetze { padding: 5rem 3rem; background: var(--sand); }
+    .schlafplaetze h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700; letter-spacing: -.03em; margin-bottom: .8rem; }
+    .schlafplaetze h2 em { font-style: italic; color: var(--rust); }
+    .schlafplaetze > p { font-size: 1rem; line-height: 1.7; opacity: .6; max-width: 600px; margin-bottom: 3rem; }
+    .sp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .sp-card { background: var(--cream); border-radius: 3px; padding: 1.2rem; border-left: 3px solid var(--rust); }
+    .sp-icon { font-size: .9rem; margin-bottom: .5rem; opacity: .7; }
+    .sp-name { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 700; margin-bottom: .3rem; line-height: 1.2; }
+    .sp-type { font-family: 'DM Mono', monospace; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; opacity: .45; }
+
+    /* PHOTOS */
+    .photo-section { padding: 6rem 3rem; }
+    .photo-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -.03em; margin-bottom: 3rem; }
+    .photo-section h2 em { font-style: italic; color: var(--rust); }
+    .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 260px 260px; gap: 1rem; }
+    .photo-item { overflow: hidden; border-radius: 3px; }
+    .photo-item:nth-child(1) { grid-column: 1/3; grid-row: 1/3; }
+    .photo-item:nth-child(4) { grid-column: 4; grid-row: 1/3; }
+    .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; display: block; }
+    .photo-item:hover img { transform: scale(1.05); }
+    .photo-cta { margin-top: 1.5rem; font-size: .9rem; opacity: .5; font-style: italic; }
+
+    /* EQUIPMENT */
+    .equipment { padding: 6rem 3rem; background: var(--sand); }
+    .equipment-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem; }
+    .equipment-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -.03em; }
+    .equipment-header h2 em { font-style: italic; color: var(--rust); }
+    .equipment-header p { font-size: .9rem; opacity: .55; max-width: 300px; line-height: 1.6; }
+    .equip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .equip-card { background: var(--cream); border-radius: 3px; overflow: hidden; transition: transform .25s; }
+    .equip-card:hover { transform: translateY(-4px); }
+    .equip-img { height: 180px; overflow: hidden; }
+    .equip-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .equip-body { padding: 1.3rem; }
+    .equip-cat { font-family: 'DM Mono', monospace; font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; color: var(--rust); margin-bottom: .5rem; }
+    .equip-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em; margin-bottom: .4rem; }
+    .equip-desc { font-size: .85rem; line-height: 1.6; opacity: .6; margin-bottom: 1.1rem; }
+    .equip-link { display: inline-flex; align-items: center; gap: .4rem; font-family: 'DM Mono', monospace; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--rust); text-decoration: none; border-bottom: 1px solid var(--rust); padding-bottom: .1rem; transition: opacity .2s; }
+    .equip-link:hover { opacity: .6; }
+    .affiliate-note { margin-top: 2rem; font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .08em; opacity: .4; }
+
+    /* DIGITAL */
+    .digital { display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); color: var(--cream); overflow: hidden; }
+    .digital-visual { position: relative; min-height: 500px; overflow: hidden; }
+    .digital-visual img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .5; }
+    .digital-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, var(--ink)); }
+    .digital-badge { position: absolute; top: 2rem; left: 2rem; background: var(--gold); color: var(--ink); font-family: 'DM Mono', monospace; font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; padding: .4rem 1rem; border-radius: 2px; z-index: 2; }
+    .digital-content { padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .digital-content .section-label { color: var(--gold); }
+    .digital-content h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 2.8vw, 2.8rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .digital-content h2 em { font-style: italic; color: var(--rust); }
+    .digital-content p { font-size: 1rem; line-height: 1.8; opacity: .65; margin-bottom: 1rem; max-width: 420px; }
+    .digital-includes { margin: 1.5rem 0 2.5rem; display: flex; flex-direction: column; gap: .7rem; }
+    .dincl { display: flex; align-items: flex-start; gap: .8rem; font-size: .9rem; opacity: .7; }
+    .dincl::before { content: '✓'; color: var(--gold); font-family: 'DM Mono', monospace; font-size: .8rem; flex-shrink: 0; margin-top: .1rem; }
+    .digital-price { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--gold); margin-bottom: 1.5rem; line-height: 1; }
+    .digital-price span { font-family: 'DM Mono', monospace; font-size: .8rem; opacity: .5; font-weight: 300; margin-left: .5rem; vertical-align: middle; }
+
+    /* BERATUNG */
+    .beratung { padding: 6rem 3rem; }
+    .beratung-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .beratung-text .section-label { color: var(--rust); }
+    .beratung-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .beratung-text h2 em { font-style: italic; color: var(--moss); }
+    .beratung-text p { font-size: 1rem; line-height: 1.8; opacity: .65; margin-bottom: 1.2rem; }
+    .beratung-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .bcard { border: 1.5px solid rgba(26,20,16,.1); border-radius: 3px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; transition: border-color .2s, background .2s; cursor: pointer; }
+    .bcard:hover { border-color: var(--rust); background: rgba(196,82,42,.03); }
+    .bcard-left h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .3rem; }
+    .bcard-left p { font-size: .85rem; opacity: .55; line-height: 1.5; }
+    .bcard-right { text-align: right; flex-shrink: 0; padding-left: 1.5rem; }
+    .bcard-price { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--rust); line-height: 1; }
+    .bcard-unit { font-family: 'DM Mono', monospace; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; opacity: .45; }
+    .beratung-note { font-size: .85rem; opacity: .45; margin-top: 1.5rem; line-height: 1.6; font-style: italic; }
+
+    /* NEWSLETTER */
+    .newsletter { background: var(--moss); color: var(--cream); padding: 5rem 3rem; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; }
+    .newsletter h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700; letter-spacing: -.03em; margin-bottom: 1rem; }
+    .newsletter h2 em { font-style: italic; color: #b8d4a8; }
+    .newsletter p { font-size: 1rem; line-height: 1.7; opacity: .7; max-width: 480px; margin-bottom: 2.5rem; }
+    .nl-form { display: flex; gap: .8rem; width: 100%; max-width: 440px; }
+    .nl-form input { flex: 1; padding: .85rem 1.2rem; background: rgba(245,240,232,.1); border: 1.5px solid rgba(245,240,232,.25); border-radius: 2px; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: .9rem; outline: none; }
+    .nl-form input::placeholder { opacity: .45; }
+
+    footer { background: var(--ink); color: var(--cream); padding: 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(245,240,232,.08); }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--cream); text-decoration: none; }
+    .footer-logo span { color: var(--rust); }
+    .footer-links { display: flex; gap: 1.8rem; }
+    .footer-links a { font-family: 'DM Mono', monospace; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); opacity: .4; text-decoration: none; transition: opacity .2s; }
+    .footer-links a:hover { opacity: .9; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+
+    @media (max-width: 900px) {
+      .hero-inner, .digital, .beratung-inner { grid-template-columns: 1fr; }
+      .hero-stats { margin-top: 2rem; }
+      .chapters, .equip-grid, .sp-grid { grid-template-columns: 1fr 1fr; }
+      .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .photo-item:nth-child(1), .photo-item:nth-child(4) { grid-column: auto; grid-row: auto; }
+      header { padding: 1.2rem 1.5rem; }
+      .route-section, .photo-section, .equipment, .beratung, .schlafplaetze { padding: 4rem 1.5rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .digital-visual { min-height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">Yassine<span>Reist</span></a>
+    <nav>
+      <a href="index.html">Startseite</a>
+      <a href="#" class="active">Marokko</a>
+      <a href="#beratung" class="nav-cta">Beratung buchen</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1548019979-6d1e5a0e92ca?w=1400&q=80" alt="Marokko Radreise" />
+    </div>
+    <div class="hero-inner">
+      <div class="hero-left" style="animation: fadeUp .9s ease both;">
+        <span class="hero-eyebrow">✦ Marokko 2024 — Bikepacking-Expedition</span>
+        <h1>Nador.<br />Dakhla.<br /><em>2.900 km.</em></h1>
+        <p class="hero-desc">Von der Mittelmeerküste bei Nador die gesamte Westküste runter bis nach Dakhla in der Westsahara. Zwei Monate, ein Fahrrad, 38 Nächte — an Tankstellen, bei Locals, am Strand und in der Wüste.</p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="#route" class="btn btn-primary">Die Route entdecken</a>
+          <a href="#beratung" class="btn btn-outline-light">Marokko-Beratung</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num">2.900</div><div class="hstat-lbl">Kilometer</div></div>
+        <div class="hstat"><div class="hstat-num">38</div><div class="hstat-lbl">Schlafplätze</div></div>
+        <div class="hstat"><div class="hstat-num">67</div><div class="hstat-lbl">Wegpunkte</div></div>
+        <div class="hstat"><div class="hstat-num">1</div><div class="hstat-lbl">Platte</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTE -->
+  <section class="route-section" id="route">
+    <div class="route-header">
+      <div>
+        <span class="section-label">✦ Die Route · Nador → Dakhla</span>
+        <h2>Von Nord nach Süd —<br />entlang der <em>Atlantikküste</em></h2>
+      </div>
+      <p>Die Route folgt im Norden dem Inland über Fès und den Mittelatlas, bevor sie bei Tiznit auf die Atlantikküste trifft und dann gerade durch die Westsahara bis Dakhla führt.</p>
+    </div>
+
+    <!-- SVG Route Map -->
+    <div class="map-container">
+      <svg viewBox="0 0 600 820" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background -->
+        <rect width="600" height="820" fill="rgba(245,240,232,0.04)" rx="4"/>
+
+        <!-- Morocco outline (simplified) -->
+        <path d="M 200,30 L 420,30 L 460,80 L 480,150 L 460,200 L 440,220 L 430,280 L 410,320 L 380,380 L 340,440 L 300,500 L 270,560 L 240,620 L 220,680 L 200,740 L 180,780 L 160,780 L 140,720 L 130,660 L 140,580 L 150,500 L 160,420 L 160,340 L 170,260 L 180,180 L 190,100 Z" fill="rgba(196,82,42,0.06)" stroke="rgba(196,82,42,0.2)" stroke-width="1"/>
+
+        <!-- Route line — Nador to Dakhla, plotted from real KML coords -->
+        <!-- Normalized: lon -2.93 to -15.93 (x), lat 35.17 to 23.70 (y) -->
+        <!-- x = (lon - (-15.93)) / ((-2.93) - (-15.93)) * 400 + 100 -->
+        <!-- y = (35.17 - lat) / (35.17 - 23.70) * 740 + 40 -->
+        <polyline
+          points="
+            409,40
+            376,66
+            354,115
+            351,124
+            345,135
+            344,145
+            336,148
+            336,149
+            329,130
+            329,148
+            322,181
+            321,188
+            316,209
+            318,197
+            317,200
+            316,210
+            314,218
+            315,240
+            311,252
+            311,264
+            307,279
+            298,309
+            298,319
+            294,334
+            291,334
+            291,343
+            291,351
+            283,371
+            276,389
+            278,380
+            275,398
+            265,445
+            265,442
+            263,463
+            251,470
+            249,481
+            248,499
+            242,514
+            237,541
+            228,559
+            227,559
+            213,581
+            213,581
+            210,593
+            205,613
+            202,626
+            198,641
+            189,662
+            186,677
+            182,691
+            176,720
+            166,741
+            166,741
+            163,751
+            162,760
+            157,780
+          "
+          fill="none"
+          stroke="#c4522a"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          filter="url(#glow)"
+          opacity="0.9"
+        />
+
+        <!-- Key city dots -->
+        <!-- Nador (Start) -->
+        <circle cx="409" cy="40" r="7" fill="#c4522a" opacity="0.9"/>
+        <text x="420" y="44" fill="#f5f0e8" font-family="monospace" font-size="10" opacity="0.8">Nador</text>
+        <text x="420" y="55" fill="#c8962a" font-family="monospace" font-size="8" opacity="0.6">START</text>
+
+        <!-- Fès -->
+        <circle cx="329" cy="130" r="5" fill="#c8962a" opacity="0.8"/>
+        <text x="338" y="134" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.7">Fès</text>
+
+        <!-- Mittlatlas -->
+        <circle cx="315" cy="218" r="4" fill="rgba(245,240,232,0.5)" opacity="0.7"/>
+        <text x="324" y="222" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.6">Mittelatlas</text>
+
+        <!-- Todra -->
+        <circle cx="291" cy="343" r="4" fill="rgba(245,240,232,0.5)" opacity="0.7"/>
+        <text x="300" y="347" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.6">Todra-Schlucht</text>
+
+        <!-- Tiznit -->
+        <circle cx="248" cy="499" r="5" fill="#c8962a" opacity="0.8"/>
+        <text x="257" y="503" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.7">Tiznit</text>
+
+        <!-- Laayoune -->
+        <circle cx="198" cy="641" r="5" fill="#c8962a" opacity="0.8"/>
+        <text x="207" y="645" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.7">Laayoune</text>
+
+        <!-- Dakhla (End) -->
+        <circle cx="157" cy="780" r="7" fill="#c8962a" opacity="0.9"/>
+        <text x="168" y="784" fill="#f5f0e8" font-family="monospace" font-size="10" opacity="0.8">Dakhla</text>
+        <text x="168" y="795" fill="#c8962a" font-family="monospace" font-size="8" opacity="0.6">ZIEL</text>
+
+        <!-- Direction arrows along route -->
+        <text x="360" y="88" fill="#c4522a" font-size="12" opacity="0.6" transform="rotate(20 360 88)">↓</text>
+        <text x="320" y="200" fill="#c4522a" font-size="12" opacity="0.6" transform="rotate(10 320 200)">↓</text>
+        <text x="290" y="380" fill="#c4522a" font-size="12" opacity="0.6" transform="rotate(-5 290 380)">↓</text>
+        <text x="240" y="530" fill="#c4522a" font-size="12" opacity="0.6" transform="rotate(-15 240 530)">↓</text>
+        <text x="195" y="680" fill="#c4522a" font-size="12" opacity="0.6" transform="rotate(-10 195 680)">↓</text>
+
+        <!-- Legend -->
+        <rect x="20" y="20" width="120" height="60" fill="rgba(26,20,16,0.6)" rx="3"/>
+        <circle cx="35" cy="40" r="4" fill="#c4522a"/>
+        <text x="46" y="44" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.8">Start / Ziel</text>
+        <circle cx="35" cy="58" r="4" fill="#c8962a"/>
+        <text x="46" y="62" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.8">Etappenort</text>
+        <line x1="30" y1="73" x2="50" y2="73" stroke="#c4522a" stroke-width="2"/>
+        <text x="56" y="77" fill="#f5f0e8" font-family="monospace" font-size="9" opacity="0.8">Route</text>
+      </svg>
+    </div>
+
+    <div class="chapters">
+      <div class="chapter">
+        <div class="chapter-img">
+          <img src="https://images.unsplash.com/photo-1559592413-7cbb6e9b2c02?w=600&q=80" alt="Nador" />
+          <div></div>
+          <span class="chapter-num">Etappe 01</span>
+        </div>
+        <div class="chapter-body">
+          <h3 class="chapter-title">Nador → Fès — Ankunft im Norden</h3>
+          <p class="chapter-desc">Der Start in Nador, direkt an der spanischen Enklave Melilla. Die erste Nacht auf einem Café-Gelände. Schon da war klar: das wird kein normaler Urlaub.</p>
+          <span class="chapter-meta">ca. 350 km · Nordmarokko · Inland</span>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-img">
+          <img src="https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=600&q=80" alt="Fès" />
+          <div></div>
+          <span class="chapter-num">Etappe 02</span>
+        </div>
+        <div class="chapter-body">
+          <h3 class="chapter-title">Fès & Mittelatlas — Medina und Berge</h3>
+          <p class="chapter-desc">Sightseeing am Bab Boujloud, dann rein in den Mittelatlas. Wilde Schlafplätze in der Natur, ein schöner See bei Ouiouane, Wasserbrunnen mitten im Nirgendwo.</p>
+          <span class="chapter-meta">ca. 400 km · Fès · Mittelatlas</span>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-img">
+          <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&q=80" alt="Todra" />
+          <div></div>
+          <span class="chapter-num">Etappe 03</span>
+        </div>
+        <div class="chapter-body">
+          <h3 class="chapter-title">Todra-Schlucht — Steilwände und Stille</h3>
+          <p class="chapter-desc">Durch Tinghir bis in die Gorges du Todra. Schlafen an der TotalEnergies-Tankstelle. Abends Stille, die man in Düsseldorf vergessen hat.</p>
+          <span class="chapter-meta">ca. 300 km · Südatlas · Gorges du Todra</span>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-img">
+          <img src="https://images.unsplash.com/photo-1519659528534-7fd733a832a0?w=600&q=80" alt="Atlantik" />
+          <div></div>
+          <span class="chapter-num">Etappe 04</span>
+        </div>
+        <div class="chapter-body">
+          <h3 class="chapter-title">Tiznit & Atlantikküste — Fisch und Freiheit</h3>
+          <p class="chapter-desc">In Tiznit kurze Pause, günstiges Hotel, Silberschmuck anschauen. Dann auf die Küstenstraße — Fisch essen am Hafen, erste Nacht direkt am Strand.</p>
+          <span class="chapter-meta">ca. 500 km · Tiznit · Atlantikküste</span>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-img">
+          <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&q=80" alt="Westsahara" />
+          <div></div>
+          <span class="chapter-num">Etappe 05</span>
+        </div>
+        <div class="chapter-body">
+          <h3 class="chapter-title">Laayoune & Westsahara — Endlos</h3>
+          <p class="chapter-desc">Die Grenze zur Westsahara ist unsichtbar, aber die Landschaft ändert sich. Weniger Menschen, mehr Stille, mehr Wind. Tankstellen als einzige Orientierung.</p>
+          <span class="chapter-meta">ca. 700 km · Laayoune · Westsahara</span>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-img">
+          <img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=600&q=80" alt="Dakhla" />
+          <div></div>
+          <span class="chapter-num">Etappe 06</span>
+        </div>
+        <div class="chapter-body">
+          <h3 class="chapter-title">Dakhla — Ziel im Hotel Elquds</h3>
+          <p class="chapter-desc">Der letzte Tag. Ein Fischerdorf kurz vor Dakhla, eine Moschee. Und dann: Ziel im Hotel Elquds. 2.900 km. Geschafft.</p>
+          <span class="chapter-meta">Endpunkt · Dakhla · Hotel Elquds</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHLAFPLÄTZE -->
+  <section class="schlafplaetze">
+    <span class="section-label">✦ 38 Nächte · Überall und nirgendwo</span>
+    <h2>Wo ich <em>geschlafen</em> habe</h2>
+    <p>Kein AirBnB, kein Booking.com. Die meisten Nächte waren improvisiert — und genau das hat die Reise ausgemacht.</p>
+    <div class="sp-grid">
+      <div class="sp-card">
+        <div class="sp-icon">⛽</div>
+        <div class="sp-name">Tankstellen</div>
+        <div class="sp-type">Afriquia · Total · TotalEnergies</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon">🌿</div>
+        <div class="sp-name">Wildcamp in der Natur</div>
+        <div class="sp-type">Atlas · Küste · Wüste</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon">☕</div>
+        <div class="sp-name">Café-Gelände</div>
+        <div class="sp-type">Café Bonjour · Café Assanawbar</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon">🏠</div>
+        <div class="sp-name">Bei Locals</div>
+        <div class="sp-type">Einladungen am Wegrand</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon">🏖️</div>
+        <div class="sp-name">Direkt am Strand</div>
+        <div class="sp-type">Atlantikküste</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon">🏕️</div>
+        <div class="sp-name">Campingplätze</div>
+        <div class="sp-type">Camping Amazigh · Laayoune Safari</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon">🏨</div>
+        <div class="sp-name">Günstige Auberges</div>
+        <div class="sp-type">Auberge Brahim · Auberge Tislite</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-icon">🕌</div>
+        <div class="sp-name">Moschee · Polizeiposten</div>
+        <div class="sp-type">Westsahara · Sicherheit & Gastfreundschaft</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOTOS -->
+  <section class="photo-section">
+    <span class="section-label">✦ Impressionen</span>
+    <h2>Bilder, die <em>bleiben</em></h2>
+    <div class="photo-grid">
+      <div class="photo-item"><img src="https://images.unsplash.com/photo-1548019979-6d1e5a0e92ca?w=800&q=80" alt="Radreise" /></div>
+      <div class="photo-item"><img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=600&q=80" alt="Dakhla" /></div>
+      <div class="photo-item"><img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=600&q=80" alt="Medina" /></div>
+      <div class="photo-item"><img src="https://images.unsplash.com/photo-1519659528534-7fd733a832a0?w=600&q=80" alt="Atlantik" /></div>
+      <div class="photo-item"><img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&q=80" alt="Atlas" /></div>
+    </div>
+    <p class="photo-cta">Meine eigenen Fotos und Videos werden bald hochgeladen — trag dich in den Newsletter ein um als erster informiert zu werden.</p>
+  </section>
+
+  <!-- EQUIPMENT -->
+  <section class="equipment" id="equipment">
+    <div class="equipment-header">
+      <div>
+        <span class="section-label">✦ Mein Equipment</span>
+        <h2>Was mich durch<br /><em>2.900 km</em> gebracht hat</h2>
+      </div>
+      <p>Getestet auf echten Straßen und Schotterpisten. Kein Sponsoring — nur was ich selbst gekauft und genutzt habe.</p>
+    </div>
+    <div class="equip-grid">
+      <div class="equip-card">
+        <div class="equip-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Fahrrad" /></div>
+        <div class="equip-body">
+          <span class="equip-cat">Das Rad</span>
+          <h3 class="equip-name">Tout Terrain Silkroad</h3>
+          <p class="equip-desc">Mein Hauptpartner für die gesamte Route. Stabil auf Asphalt und Schotter — ein einziger Platten in 2.900 km spricht für sich.</p>
+          <a href="#" class="equip-link">Auf Amazon ansehen →</a>
+        </div>
+      </div>
+      <div class="equip-card">
+        <div class="equip-img"><img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=500&q=80" alt="Taschen" /></div>
+        <div class="equip-body">
+          <span class="equip-cat">Gepäck</span>
+          <h3 class="equip-name">Ortlieb Bikepacking Set</h3>
+          <p class="equip-desc">Wasserdicht, robust — Front- und Backroller plus Lenkertasche. Hat alles für zwei Monate geschluckt und nie versagt.</p>
+          <a href="#" class="equip-link">Auf Amazon ansehen →</a>
+        </div>
+      </div>
+      <div class="equip-card">
+        <div class="equip-img"><img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&q=80" alt="Zelt" /></div>
+        <div class="equip-body">
+          <span class="equip-cat">Schlafen</span>
+          <h3 class="equip-name">MSR Hubba Hubba NX</h3>
+          <p class="equip-desc">Leicht, schnell aufgebaut. Hat Atlaskälte und Saharawind ausgehalten. Unverzichtbar für Wildcamp-Nächte.</p>
+          <a href="#" class="equip-link">Auf Amazon ansehen →</a>
+        </div>
+      </div>
+      <div class="equip-card">
+        <div class="equip-img"><img src="https://images.unsplash.com/photo-1544511916-0148ccdeb877?w=500&q=80" alt="Navigation" /></div>
+        <div class="equip-body">
+          <span class="equip-cat">Navigation</span>
+          <h3 class="equip-name">Garmin Edge 530 + Komoot</h3>
+          <p class="equip-desc">Meine Route war in Google Maps — aber Garmin + Komoot für Offline-Navigation war unersetzlich, besonders in der Westsahara ohne Empfang.</p>
+          <a href="#" class="equip-link">Garmin ansehen →</a>
+        </div>
+      </div>
+      <div class="equip-card">
+        <div class="equip-img"><img src="https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?w=500&q=80" alt="Kamera" /></div>
+        <div class="equip-body">
+          <span class="equip-cat">Foto & Video</span>
+          <h3 class="equip-name">Sony ZV-E10 + GoPro 11</h3>
+          <p class="equip-desc">Sony für Fotos am Wegrand, GoPro am Lenker für Fahrtaufnahmen. Kompakt und leicht — wichtig wenn jedes Gramm zählt.</p>
+          <a href="#" class="equip-link">Sony ansehen →</a>
+        </div>
+      </div>
+      <div class="equip-card">
+        <div class="equip-img"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&q=80" alt="Sonstiges" /></div>
+        <div class="equip-body">
+          <span class="equip-cat">Must-Haves</span>
+          <h3 class="equip-name">Wasserfilter · Powerbank · Verbandsmaterial</h3>
+          <p class="equip-desc">Sawyer Wasserfilter für Quellen unterwegs, 30.000 mAh Powerbank, vollständiges Verbandsmaterial. In der Westsahara alles lebensnotwendig.</p>
+          <a href="#" class="equip-link">Komplette Liste →</a>
+        </div>
+      </div>
+    </div>
+    <p class="affiliate-note">* Affiliate-Links: Ich erhalte eine kleine Provision wenn du über diese Links kaufst — ohne Mehrkosten für dich.</p>
+  </section>
+
+  <!-- DIGITAL PRODUCT -->
+  <div class="digital" id="guide">
+    <div class="digital-visual">
+      <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=700&q=80" alt="Routenguide" />
+      <span class="digital-badge">Digitales Produkt</span>
+    </div>
+    <div class="digital-content">
+      <span class="section-label">✦ Routenguide · Nador → Dakhla</span>
+      <h2>Meine komplette<br /><em>Route als PDF</em></h2>
+      <p>Alles was ich in 2.900 km gelernt habe — in einem Dokument. GPX-Tracks, alle 67 Wegpunkte, Schlafplätze, Wasserquellen und persönliche Hinweise für jede Etappe.</p>
+      <div class="digital-includes">
+        <div class="dincl">Alle 67 Wegpunkte als GPX-Datei (Nador → Dakhla, importierbar in Komoot / Garmin)</div>
+        <div class="dincl">Etappenplan mit Distanzen und Schwierigkeitsgrad</div>
+        <div class="dincl">Alle 38 Schlafplätze mit Typ und Koordinaten</div>
+        <div class="dincl">Wasserquellen und Wasserbrunnen entlang der Route</div>
+        <div class="dincl">Tankstellen, Cafés, Restaurants mit GPS-Punkt</div>
+        <div class="dincl">Persönliche Tipps für die Westsahara und Grenzübergang</div>
+      </div>
+      <div class="digital-price">29 € <span>einmalig · sofortiger Download</span></div>
+      <a href="#" class="btn btn-gold" style="align-self:flex-start;">Guide kaufen →</a>
+    </div>
+  </div>
+
+  <!-- BERATUNG -->
+  <section class="beratung" id="beratung">
+    <div class="beratung-inner">
+      <div class="beratung-text">
+        <span class="section-label">✦ Marokko-Beratung</span>
+        <h2>Du planst eine Reise<br />nach <em>Marokko</em>?</h2>
+        <p>Als Deutsch-Marokkaner kenne ich das Land aus zwei Perspektiven — als Tourist und als jemand mit Familie dort. Ich habe 2.900 km auf dem Rad durch Marokko zurückgelegt und kenne Orte, die in keinem Reiseführer stehen.</p>
+        <p>Ob Bikepacking, Backpacking, Familienurlaub oder Städtetrip — ich berate dich ehrlich, ohne Hochglanz und ohne Werbung.</p>
+        <p class="beratung-note">Alle Beratungen per Video-Call (Zoom / Google Meet). Nach Buchung erhältst du innerhalb 24h einen Terminvorschlag.</p>
+      </div>
+      <div class="beratung-cards">
+        <div class="bcard">
+          <div class="bcard-left">
+            <h3>Kurzberatung</h3>
+            <p>30 Minuten · Konkrete Fragen zu Route, Budget oder Unterkunft</p>
+          </div>
+          <div class="bcard-right">
+            <div class="bcard-price">30 €</div>
+            <div class="bcard-unit">pro Session</div>
+          </div>
+        </div>
+        <div class="bcard">
+          <div class="bcard-left">
+            <h3>Reiseplanung komplett</h3>
+            <p>90 Minuten · Wir planen deine Reise von A bis Z zusammen</p>
+          </div>
+          <div class="bcard-right">
+            <div class="bcard-price">75 €</div>
+            <div class="bcard-unit">pro Session</div>
+          </div>
+        </div>
+        <div class="bcard">
+          <div class="bcard-left">
+            <h3>Bikepacking Nador → Dakhla</h3>
+            <p>60 Minuten · Speziell für Radreisende — Route, Equipment, Schlafplätze</p>
+          </div>
+          <div class="bcard-right">
+            <div class="bcard-price">60 €</div>
+            <div class="bcard-unit">pro Session</div>
+          </div>
+        </div>
+        <a href="mailto:beratung@yassinereist.de" class="btn btn-primary" style="margin-top:.5rem;">Termin anfragen →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <span class="section-label" style="color:#b8d4a8">✦ Nichts verpassen</span>
+    <h2>Fotos, Videos und<br /><em>neue Kapitel</em> kommen bald.</h2>
+    <p>Ich lade gerade alles hoch und schreibe die Etappen auf. Trag dich ein — du bekommst eine Mail sobald etwas Neues online geht.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="deine@email.de" />
+      <button class="btn btn-primary" style="white-space:nowrap">Informieren lassen</button>
+    </div>
+  </section>
+
+  <footer>
+    <a class="footer-logo" href="index.html">Yassine<span>Reist</span></a>
+    <div class="footer-links">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+      <a href="mailto:beratung@yassinereist.de">Kontakt</a>
+    </div>
+    <span style="font-family:'DM Mono',monospace; font-size:.6rem; opacity:.3; color:var(--cream);">© 2025 Yassine · Düsseldorf</span>
+  </footer>
+
+</body>
+</html>
